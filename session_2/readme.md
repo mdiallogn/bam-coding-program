@@ -10,16 +10,12 @@ Create a basic Python script to verify the Python environment is working correct
 ```python
 # Simple script to verify Python environment
 print("Hello, Python!")
-print("Python environment is working correctly!")
-
-# Display Python version
-import sys
-print(f"Python version: {sys.version}")
+print("Python is working!")
 ```
 
 ### Activity 2: Building a Simple Calculator
 
-Develop a Python program for basic arithmetic operations that prompts for two numbers and an operation, then displays the result.
+Develop a Python program for basic arithmetic operations.
 
 **File: `calculator.py`**
 ```python
@@ -39,17 +35,13 @@ elif operation == '-':
 elif operation == '*':
     result = num1 * num2
 elif operation == '/':
-    if num2 != 0:
-        result = num1 / num2
-    else:
-        print("Error: Division by zero!")
-        exit()
+    result = num1 / num2
 else:
-    print("Error: Invalid operation!")
+    print("Invalid operation!")
     exit()
 
 # Display result
-print(f"Result: {num1} {operation} {num2} = {result}")
+print(f"Result: {result}")
 ```
 
 ### Activity 3: Executing the Script
@@ -59,8 +51,16 @@ Run both scripts to confirm Python is installed and working correctly.
 **Steps:**
 1. Open terminal/command prompt
 2. Navigate to your project directory
-3. Run the environment verification script:
+3. Run the scripts:
    ```bash
+   python hello_python.py
+   python calculator.py
+   ```
+
+**Learning Goals:**
+- [ ] Python executes without errors
+- [ ] Calculator performs basic operations
+- [ ] Understand input and output
    python hello_python.py
    ```
    **Expected output:**

@@ -1,104 +1,104 @@
 # Session 3 - Python Loops
 
-## Section 1: Basic For Loops
+## Section 1: For Loops
 
-### Activity 1.1: Range-based For Loop
+### Activity 1.1: Basic For Loop
 
-Create a script that demonstrates counting with for loops.
+Learn to count with for loops.
 
-**File: `range_loops.py`**
+**File: `for_loops.py`**
 ```python
-# Range-based For Loop Examples
-print("=== Range-based For Loops ===\n")
+# For Loop Examples
+print("=== For Loops ===\n")
 
-# Counting from 1 to 5
-print("Counting from 1 to 5:")
+# Count from 1 to 5
+print("Counting 1 to 5:")
 for i in range(1, 6):
-    print(f"Count: {i}")
+    print(i)
 
-# Counting with steps
-print("\nCounting by 2s from 0 to 10:")
+# Count by 2s
+print("\nCounting by 2s:")
 for i in range(0, 11, 2):
-    print(f"Count: {i}")
+    print(i)
 
-# Sum of numbers
-print("\nSum of numbers 1-10:")
-total = 0
-for num in range(1, 11):
-    total += num
-print(f"Sum: {total}")
-```
-
-### Activity 1.2: List Iteration
-
-Practice iterating through lists and using enumerate.
-
-**File: `list_loops.py`**
-```python
-# List Iteration Examples
-print("=== List Iteration ===\n")
-
-# Basic list iteration
-fruits = ["apple", "banana", "orange", "grape"]
-print("Iterating through a list:")
+# Loop through a list
+fruits = ["apple", "banana", "orange"]
+print("\nFruits:")
 for fruit in fruits:
-    print(f"Fruit: {fruit}")
-
-# Using enumerate
-print("\nUsing enumerate:")
-for index, fruit in enumerate(fruits):
-    print(f"Index {index}: {fruit}")
-
-# Working with multiple lists
-print("\nZipping two lists:")
-colors = ["red", "yellow", "orange", "purple"]
-for fruit, color in zip(fruits, colors):
-    print(f"{fruit} is {color}")
+    print(fruit)
 ```
 
-## Section 2: While Loops
+### Activity 1.2: While Loops
 
-### Activity 2.1: Basic While Loop
+Learn while loop basics.
 
-Learn while loop syntax and counting.
-
-**File: `basic_while.py`**
+**File: `while_loops.py`**
 ```python
-# Basic While Loop Examples
-print("=== Basic While Loops ===\n")
+# While Loop Examples
+print("=== While Loops ===\n")
 
-# Simple counting down
-print("Counting down:")
+# Count down
+print("Countdown:")
 count = 5
 while count > 0:
-    print(f"Count: {count}")
+    print(count)
     count -= 1
-print("Finished!")
+print("Done!")
 
-# Accumulating values
-print("\nAccumulating values:")
-total = 0
-num = 1
-while num <= 5:
-    total += num
-    print(f"Adding {num}, total: {total}")
-    num += 1
+# Simple game
+print("\nGuessing game:")
+secret = 7
+guess = 0
+while guess != secret:
+    guess = int(input("Guess a number 1-10: "))
+    if guess != secret:
+        print("Try again!")
+    else:
+        print("You got it!")
 ```
 
-### Activity 2.2: Interactive While Loop
+## Section 2: Loop Control
 
-Create interactive programs with user input validation.
+### Activity 2.1: Break and Continue
 
-**File: `interactive_while.py`**
+Learn to control loops.
+
+**File: `loop_control.py`**
 ```python
-# Interactive While Loop Examples
-print("=== Interactive While Loops ===\n")
+# Loop Control Examples
+print("=== Loop Control ===\n")
 
-# Number guessing game
-import random
-print("Number guessing game:")
-secret_number = random.randint(1, 10)
-guess = 0
+# Using break
+print("Finding first even number:")
+numbers = [1, 3, 7, 8, 11, 12]
+for num in numbers:
+    if num % 2 == 0:
+        print(f"Found even number: {num}")
+        break
+    print(f"Checking: {num}")
+
+# Using continue
+print("\nSkipping odd numbers:")
+for num in range(1, 11):
+    if num % 2 == 1:
+        continue
+    print(f"Even: {num}")
+```
+
+## Execution Instructions
+
+Run each script to practice loops:
+
+```bash
+python for_loops.py
+python while_loops.py
+python loop_control.py
+```
+
+**Learning Goals:**
+- [ ] Understand for and while loops
+- [ ] Use break and continue
+- [ ] Create simple interactive programs
 attempts = 0
 
 while guess != secret_number:
@@ -112,6 +112,8 @@ while guess != secret_number:
         print(f"Correct! You got it in {attempts} attempts!")
 
 # Menu system
+
+```python
 print("\nSimple menu system:")
 choice = ""
 while choice != "quit":

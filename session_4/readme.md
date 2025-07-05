@@ -2,123 +2,123 @@
 
 ## Section 1: Basic Functions
 
-### Activity 1.1: Defining and Calling Functions
+### Activity 1.1: Simple Functions
 
-Create simple functions without parameters.
+Create and use basic functions.
 
 **File: `basic_functions.py`**
 ```python
 # Basic Function Examples
 print("=== Basic Functions ===\n")
 
-# Simple function without parameters
-def greet():
-    print("Hello, World!")
-    print("Welcome to Python functions!")
+# Simple function
+def say_hello():
+    print("Hello!")
 
-# Function that performs a calculation
-def calculate_area():
-    length = 5
-    width = 3
-    area = length * width
-    print(f"Area of rectangle: {area}")
+# Function with parameter
+def greet(name):
+    print(f"Hello, {name}!")
 
-# Function with multiple statements
-def display_info():
-    print("This is a function")
-    print("Functions help organize code")
-    print("They make code reusable")
+# Function that returns a value
+def add_numbers(a, b):
+    return a + b
 
-# Calling functions
-print("Calling greet():")
-greet()
-
-print("\nCalling calculate_area():")
-calculate_area()
-
-print("\nCalling display_info():")
-display_info()
+# Using functions
+say_hello()
+greet("Alice")
+result = add_numbers(5, 3)
+print(f"5 + 3 = {result}")
 ```
 
 ### Activity 1.2: Functions with Parameters
 
-Learn to pass data to functions using parameters.
+Learn to pass data to functions.
 
-**File: `function_parameters.py`**
+**File: `function_practice.py`**
 ```python
-# Function Parameters Examples
-print("=== Function Parameters ===\n")
+# Function Practice
+print("=== Function Practice ===\n")
 
-# Function with single parameter
-def greet_person(name):
-    print(f"Hello, {name}!")
+# Calculate area
+def rectangle_area(length, width):
+    return length * width
 
-# Function with multiple parameters
-def calculate_rectangle_area(length, width):
-    area = length * width
-    print(f"Rectangle area: {length} x {width} = {area}")
+# Check if number is even
+def is_even(number):
+    return number % 2 == 0
 
-# Function with default parameters
-def greet_with_title(name, title="Mr./Ms."):
-    print(f"Hello, {title} {name}!")
+# Create greeting
+def make_greeting(name, age):
+    return f"Hi, I'm {name} and I'm {age} years old"
 
-# Function with mixed parameters
-def create_profile(name, age, city="Unknown"):
-    print(f"Profile: {name}, {age} years old, from {city}")
+# Test functions
+area = rectangle_area(5, 3)
+print(f"Rectangle area: {area}")
 
-# Calling functions with parameters
-print("Single parameter:")
-greet_person("Alice")
-greet_person("Bob")
+print(f"Is 4 even? {is_even(4)}")
+print(f"Is 7 even? {is_even(7)}")
 
-print("\nMultiple parameters:")
-calculate_rectangle_area(4, 6)
-calculate_rectangle_area(10, 2)
-
-print("\nDefault parameters:")
-greet_with_title("Smith")
-greet_with_title("Johnson", "Dr.")
-
-print("\nMixed parameters:")
-create_profile("Alice", 25)
-create_profile("Bob", 30, "New York")
+greeting = make_greeting("Bob", 16)
+print(greeting)
 ```
 
-## Section 2: Return Values
+## Section 2: Function Applications
 
-### Activity 2.1: Functions that Return Values
+### Activity 2.1: Simple Calculator with Functions
 
-Create functions that return results instead of printing.
+Build a calculator using functions.
 
-**File: `return_values.py`**
+**File: `calculator_functions.py`**
 ```python
-# Return Values Examples
-print("=== Return Values ===\n")
+# Calculator with Functions
+print("=== Calculator with Functions ===\n")
 
-# Function returning a single value
-def add_numbers(a, b):
+def add(a, b):
     return a + b
 
-# Function returning calculated result
-def calculate_circle_area(radius):
-    pi = 3.14159
-    area = pi * radius ** 2
-    return area
+def subtract(a, b):
+    return a - b
 
-# Function returning multiple values
-def get_name_info(full_name):
-    parts = full_name.split()
-    first_name = parts[0]
-    last_name = parts[-1]
-    return first_name, last_name
+def multiply(a, b):
+    return a * b
 
-# Function with conditional return
-def check_grade(score):
-    if score >= 90:
-        return "A"
-    elif score >= 80:
-        return "B"
-    elif score >= 70:
+def divide(a, b):
+    return a / b
+
+# Simple calculator
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+operation = input("Enter operation (+, -, *, /): ")
+
+if operation == '+':
+    result = add(num1, num2)
+elif operation == '-':
+    result = subtract(num1, num2)
+elif operation == '*':
+    result = multiply(num1, num2)
+elif operation == '/':
+    result = divide(num1, num2)
+else:
+    print("Invalid operation!")
+    exit()
+
+print(f"Result: {result}")
+```
+
+## Execution Instructions
+
+Run each script to practice functions:
+
+```bash
+python basic_functions.py
+python function_practice.py
+python calculator_functions.py
+```
+
+**Learning Goals:**
+- [ ] Create and call functions
+- [ ] Use parameters and return values
+- [ ] Apply functions to solve problems
         return "C"
     elif score >= 60:
         return "D"
@@ -126,6 +126,8 @@ def check_grade(score):
         return "F"
 
 # Using return values
+
+```python
 print("Addition result:")
 result = add_numbers(15, 25)
 print(f"15 + 25 = {result}")

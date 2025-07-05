@@ -1,526 +1,636 @@
-# Session 5 - Understanding Data Structures in Python: Arrays, Lists, and Dictionaries
+# Session 5 - Python Data Structures: Lists, Dictionaries, and Arrays
 
-## Section 1: Working with Lists
+## What You'll Learn Today
+- [ ] How to create and use lists (ordered collections)
+- [ ] How to create and use dictionaries (key-value pairs)
+- [ ] How to work with arrays (efficient number storage)
+- [ ] When to use lists vs dictionaries vs arrays
+- [ ] How to combine these data structures for real projects
 
-### Activity 1.1: List Basics and Creation
+---
 
-Learn different ways to create and initialize lists.
+## Part 1: Lists - Your Digital Shopping Cart
+
+Think of a list like a shopping cart - it keeps things in order, and you can have duplicates (like buying 2 apples).
+
+### Activity 1.1: Creating Your First Lists
+
+Learn the basics of making and using lists.
 
 **File: `list_basics.py`**
 ```python
-# List Basics Examples
-print("=== List Basics ===\n")
+# List Basics - Let's start simple!
+print("=== My First Lists ===\n")
 
-# Creating lists
-empty_list = []
-numbers = [1, 2, 3, 4, 5]
-mixed_list = [1, "hello", 3.14, True]
-nested_list = [[1, 2], [3, 4], [5, 6]]
+# Create different types of lists
+my_grades = [85, 92, 78, 90, 88]
+favorite_movies = ["Spider-Man", "Avatar", "The Matrix"]
+mixed_stuff = [16, "John", True, 3.14]
 
-print("Different types of lists:")
-print(f"Empty list: {empty_list}")
-print(f"Numbers: {numbers}")
-print(f"Mixed types: {mixed_list}")
-print(f"Nested list: {nested_list}")
+print(f"My grades: {my_grades}")
+print(f"Favorite movies: {favorite_movies}")
+print(f"Mixed list: {mixed_stuff}")
 
-# List creation methods
-range_list = list(range(1, 6))
-repeated_list = [0] * 5
-string_list = list("hello")
+# Access items by position (index starts at 0!)
+print(f"\nFirst grade: {my_grades[0]}")
+print(f"Last movie: {favorite_movies[-1]}")  # -1 means last item
 
-print(f"\nFrom range: {range_list}")
-print(f"Repeated elements: {repeated_list}")
-print(f"From string: {string_list}")
-
-# List comprehension
-squares = [x**2 for x in range(1, 6)]
-evens = [x for x in range(1, 11) if x % 2 == 0]
-
-print(f"Squares: {squares}")
-print(f"Even numbers: {evens}")
+# How many items do we have?
+print(f"Number of grades: {len(my_grades)}")
 ```
 
-### Activity 1.2: List Operations and Methods
+### Activity 1.2: Adding and Removing Items
 
-Explore list manipulation methods and operations.
+Learn how to change your lists.
 
 **File: `list_operations.py`**
 ```python
-# List Operations Examples
-print("=== List Operations ===\n")
+# List Operations - Making changes!
+print("=== Changing Lists ===\n")
 
-# Initialize a list
-fruits = ["apple", "banana", "orange"]
-print(f"Original list: {fruits}")
+# Start with a homework list
+homework = ["Math", "Science", "English"]
+print(f"Original homework: {homework}")
 
-# Adding elements
-fruits.append("grape")
-print(f"After append: {fruits}")
+# Add new subjects
+homework.append("History")  # Add to the end
+homework.insert(1, "Art")   # Insert at position 1
+print(f"After adding subjects: {homework}")
 
-fruits.insert(1, "kiwi")
-print(f"After insert: {fruits}")
+# Remove subjects (when you finish them!)
+homework.remove("Math")     # Remove by name
+finished = homework.pop()   # Remove last item and save it
+print(f"After removing Math: {homework}")
+print(f"Just finished: {finished}")
 
-fruits.extend(["mango", "pear"])
-print(f"After extend: {fruits}")
+# Check if something is in the list
+if "Science" in homework:
+    print("Don't forget about Science homework!")
 
-# Removing elements
-fruits.remove("banana")
-print(f"After remove: {fruits}")
-
-popped = fruits.pop()
-print(f"After pop: {fruits}, popped: {popped}")
-
-del fruits[0]
-print(f"After del: {fruits}")
-
-# List methods
-numbers = [3, 1, 4, 1, 5, 9, 2, 6]
-print(f"\nNumbers: {numbers}")
-print(f"Length: {len(numbers)}")
-print(f"Count of 1: {numbers.count(1)}")
-print(f"Index of 4: {numbers.index(4)}")
-
-# Sorting
-numbers.sort()
-print(f"Sorted: {numbers}")
-
-numbers.reverse()
-print(f"Reversed: {numbers}")
-
-# Copying lists
-original = [1, 2, 3]
-shallow_copy = original.copy()
-deep_copy = original[:]
-
-print(f"\nOriginal: {original}")
-print(f"Shallow copy: {shallow_copy}")
-print(f"Deep copy: {deep_copy}")
+# Go through all items
+print("\nRemaining homework:")
+for subject in homework:
+    print(f"- {subject}")
 ```
 
-### Activity 1.3: List Slicing and Indexing
+### Activity 1.3: List Tricks and Tips
 
-Master list slicing and indexing techniques.
+Cool things you can do with lists.
 
-**File: `list_slicing.py`**
+**File: `list_tricks.py`**
 ```python
-# List Slicing Examples
-print("=== List Slicing ===\n")
+# List Tricks - Cool techniques!
+print("=== List Tricks ===\n")
 
-numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-print(f"Original list: {numbers}")
+# Working with numbers
+test_scores = [85, 92, 78, 90, 88, 76, 95]
+print(f"Test scores: {test_scores}")
 
-# Basic indexing
-print(f"First element: {numbers[0]}")
-print(f"Last element: {numbers[-1]}")
-print(f"Second to last: {numbers[-2]}")
+# Get useful information
+print(f"Highest score: {max(test_scores)}")
+print(f"Lowest score: {min(test_scores)}")
+print(f"Average score: {sum(test_scores) / len(test_scores):.1f}")
 
-# Basic slicing
-print(f"First 3 elements: {numbers[:3]}")
-print(f"Last 3 elements: {numbers[-3:]}")
-print(f"Middle elements: {numbers[2:8]}")
+# Sort the list
+test_scores.sort()  # Changes the original list
+print(f"Sorted scores: {test_scores}")
 
-# Step slicing
-print(f"Every 2nd element: {numbers[::2]}")
-print(f"Every 3rd from index 1: {numbers[1::3]}")
-print(f"Reverse list: {numbers[::-1]}")
+# Make a copy and sort it differently
+scores_copy = test_scores.copy()
+scores_copy.sort(reverse=True)  # High to low
+print(f"High to low: {scores_copy}")
 
-# Modifying with slicing
-numbers[2:5] = [20, 30, 40]
-print(f"After modification: {numbers}")
-
-numbers[1:4] = [100]
-print(f"After replacement: {numbers}")
-
-# Nested list slicing
-matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-print(f"\nMatrix: {matrix}")
-print(f"First row: {matrix[0]}")
-print(f"First column: {[row[0] for row in matrix]}")
-print(f"Center element: {matrix[1][1]}")
+# Slice the list (get parts of it)
+top_three = scores_copy[:3]  # First 3 items
+bottom_two = scores_copy[-2:]  # Last 2 items
+print(f"Top 3 scores: {top_three}")
+print(f"Bottom 2 scores: {bottom_two}")
 ```
 
-## Section 2: Working with Dictionaries
+---
 
-### Activity 2.1: Dictionary Basics and Creation
+## Part 2: Dictionaries - Your Digital Address Book
 
-Learn different ways to create and initialize dictionaries.
+Think of a dictionary like a phone book - you look up a name (key) to find a phone number (value).
+
+### Activity 2.1: Creating Your First Dictionary
+
+Learn to store information with labels.
 
 **File: `dictionary_basics.py`**
 ```python
-# Dictionary Basics Examples
-print("=== Dictionary Basics ===\n")
+# Dictionary Basics - Information with labels!
+print("=== My First Dictionary ===\n")
 
-# Creating dictionaries
-empty_dict = {}
-student = {"name": "Alice", "age": 20, "grade": "A"}
-mixed_dict = {"string": "hello", "number": 42, "list": [1, 2, 3]}
-
-print("Different types of dictionaries:")
-print(f"Empty dict: {empty_dict}")
-print(f"Student: {student}")
-print(f"Mixed types: {mixed_dict}")
-
-# Dictionary creation methods
-keys = ["a", "b", "c"]
-values = [1, 2, 3]
-from_lists = dict(zip(keys, values))
-print(f"From lists: {from_lists}")
-
-# Dictionary comprehension
-squares_dict = {x: x**2 for x in range(1, 6)}
-print(f"Squares dict: {squares_dict}")
-
-# Using dict() constructor
-person = dict(name="Bob", age=25, city="New York")
-print(f"Using dict(): {person}")
-
-# Nested dictionaries
-company = {
-    "name": "Tech Corp",
-    "employees": {
-        "john": {"position": "developer", "salary": 70000},
-        "jane": {"position": "designer", "salary": 65000}
-    }
+# Create a student profile
+my_profile = {
+    "name": "Alex Smith",
+    "age": 16,
+    "grade": "11th",
+    "favorite_subject": "Computer Science",
+    "gpa": 3.8
 }
-print(f"Nested dict: {company}")
+
+print(f"My profile: {my_profile}")
+print(f"My name: {my_profile['name']}")
+print(f"My age: {my_profile['age']}")
+
+# Add new information
+my_profile["hobby"] = "Gaming"
+my_profile["city"] = "Boston"
+print(f"Updated profile: {my_profile}")
+
+# Change existing information
+my_profile["age"] = 17  # Happy birthday!
+print(f"After birthday: {my_profile}")
 ```
 
-### Activity 2.2: Dictionary Operations and Methods
+### Activity 2.2: Dictionary Operations
 
-Explore dictionary manipulation methods and operations.
+Learn to work with dictionary information.
 
 **File: `dictionary_operations.py`**
 ```python
-# Dictionary Operations Examples
-print("=== Dictionary Operations ===\n")
+# Dictionary Operations - Managing information!
+print("=== Working with Dictionaries ===\n")
 
-# Initialize a dictionary
-student = {"name": "Alice", "age": 20, "grade": "A"}
-print(f"Original dict: {student}")
-
-# Adding/updating elements
-student["email"] = "alice@example.com"
-student["age"] = 21
-print(f"After additions: {student}")
-
-# Dictionary methods
-print(f"Keys: {list(student.keys())}")
-print(f"Values: {list(student.values())}")
-print(f"Items: {list(student.items())}")
-
-# Getting values safely
-print(f"Name: {student.get('name')}")
-print(f"Phone: {student.get('phone', 'Not provided')}")
-
-# Removing elements
-email = student.pop("email")
-print(f"After pop: {student}, removed: {email}")
-
-# Update dictionary
-student.update({"city": "Boston", "major": "Computer Science"})
-print(f"After update: {student}")
-
-# Dictionary iteration
-print("\nIterating through dictionary:")
-for key in student:
-    print(f"{key}: {student[key]}")
-
-print("\nUsing items():")
-for key, value in student.items():
-    print(f"{key} -> {value}")
-
-# Dictionary copying
-original = {"a": 1, "b": 2}
-shallow = original.copy()
-print(f"Original: {original}, Copy: {shallow}")
-```
-
-### Activity 2.3: Advanced Dictionary Techniques
-
-Work with nested dictionaries and complex operations.
-
-**File: `advanced_dictionaries.py`**
-```python
-# Advanced Dictionary Examples
-print("=== Advanced Dictionary Techniques ===\n")
-
-# Nested dictionary operations
-inventory = {
-    "electronics": {
-        "laptop": {"price": 999, "stock": 5},
-        "phone": {"price": 699, "stock": 12}
-    },
-    "clothing": {
-        "shirt": {"price": 29, "stock": 25},
-        "pants": {"price": 49, "stock": 15}
-    }
+# Create a contact book
+contacts = {
+    "Mom": "555-1234",
+    "Dad": "555-5678",
+    "Best Friend": "555-9012",
+    "Pizza Place": "555-3456"
 }
 
-print("Inventory structure:")
-for category, items in inventory.items():
-    print(f"{category}:")
-    for item, details in items.items():
-        print(f"  {item}: ${details['price']}, Stock: {details['stock']}")
+print(f"My contacts: {contacts}")
 
-# Dictionary merging
-dict1 = {"a": 1, "b": 2}
-dict2 = {"c": 3, "d": 4}
-merged = {**dict1, **dict2}
-print(f"\nMerged dictionaries: {merged}")
+# Look up a contact safely
+contact_name = "Mom"
+if contact_name in contacts:
+    print(f"{contact_name}'s number: {contacts[contact_name]}")
 
-# Counting with dictionaries
-text = "hello world"
-char_count = {}
-for char in text:
-    char_count[char] = char_count.get(char, 0) + 1
-print(f"Character count: {char_count}")
+# Add new contact
+contacts["School"] = "555-7890"
+print(f"After adding school: {contacts}")
 
-# Dictionary filtering
-students = {
-    "Alice": 85,
-    "Bob": 92,
-    "Charlie": 78,
-    "Diana": 96
-}
+# Get all names and numbers
+print("\nAll my contacts:")
+for name, number in contacts.items():
+    print(f"{name}: {number}")
 
-high_scorers = {name: score for name, score in students.items() if score >= 90}
-print(f"High scorers: {high_scorers}")
-
-# Sorting dictionaries
-sorted_by_score = dict(sorted(students.items(), key=lambda x: x[1], reverse=True))
-print(f"Sorted by score: {sorted_by_score}")
+# Get just the names or just the numbers
+print(f"\nContact names: {list(contacts.keys())}")
+print(f"Phone numbers: {list(contacts.values())}")
 ```
 
-## Section 3: Working with Arrays
+### Activity 2.3: Advanced Dictionary Uses
 
-### Activity 3.1: Python Arrays vs Lists
+Solve real problems with dictionaries.
 
-Compare arrays and lists, and when to use each.
-
-**File: `arrays_vs_lists.py`**
+**File: `dictionary_advanced.py`**
 ```python
-# Arrays vs Lists Examples
-print("=== Arrays vs Lists ===\n")
+# Advanced Dictionary Uses - Real world examples!
+print("=== Advanced Dictionary Magic ===\n")
+
+# Grade tracker for multiple subjects
+grade_book = {
+    "Math": [85, 90, 88, 92],
+    "Science": [78, 85, 82, 88],
+    "English": [92, 88, 90, 95],
+    "History": [85, 87, 90, 92]
+}
+
+print("Grade Book:")
+for subject, grades in grade_book.items():
+    average = sum(grades) / len(grades)
+    print(f"{subject}: {grades} → Average: {average:.1f}")
+
+# Count things with a dictionary
+favorite_colors = ["blue", "red", "blue", "green", "red", "blue", "yellow"]
+color_count = {}
+
+for color in favorite_colors:
+    if color in color_count:
+        color_count[color] += 1
+    else:
+        color_count[color] = 1
+
+print(f"\nColor popularity: {color_count}")
+
+# Find the most popular color
+most_popular = max(color_count, key=color_count.get)
+print(f"Most popular color: {most_popular}")
+```
+
+---
+
+## Part 3: Arrays - Your Math Toolkit
+
+Arrays are like lists but designed specifically for numbers and math operations. They're more efficient when working with lots of numbers!
+
+### Activity 3.1: Introduction to Arrays
+
+Learn the difference between arrays and lists.
+
+**File: `array_basics.py`**
+```python
+# Array Basics - Numbers made easy!
+print("=== Introduction to Arrays ===\n")
 
 import array
 
-# Creating arrays
-int_array = array.array('i', [1, 2, 3, 4, 5])
-float_array = array.array('f', [1.1, 2.2, 3.3, 4.4, 5.5])
-char_array = array.array('u', 'hello')
+# Create different types of arrays
+grades_array = array.array('i', [85, 92, 78, 90, 88])  # 'i' means integers
+prices_array = array.array('f', [12.99, 8.50, 15.75, 22.00])  # 'f' means floats
 
-print("Array examples:")
-print(f"Integer array: {int_array}")
-print(f"Float array: {float_array}")
-print(f"Character array: {char_array}")
+print(f"Grades array: {grades_array}")
+print(f"Prices array: {prices_array}")
 
-# Array vs List comparison
+# Compare with regular lists
+grades_list = [85, 92, 78, 90, 88]
+print(f"Grades list: {grades_list}")
+
+# Arrays are more memory efficient for numbers
 import sys
-list_example = [1, 2, 3, 4, 5]
-array_example = array.array('i', [1, 2, 3, 4, 5])
+print(f"\nMemory comparison:")
+print(f"List size: {sys.getsizeof(grades_list)} bytes")
+print(f"Array size: {sys.getsizeof(grades_array)} bytes")
 
-print(f"\nMemory usage:")
-print(f"List size: {sys.getsizeof(list_example)} bytes")
-print(f"Array size: {sys.getsizeof(array_example)} bytes")
+# Array operations (similar to lists)
+grades_array.append(95)
+print(f"After adding grade: {grades_array}")
 
-# Array operations
-print(f"\nArray operations:")
-int_array.append(6)
-print(f"After append: {int_array}")
-
-int_array.insert(0, 0)
-print(f"After insert: {int_array}")
-
-removed = int_array.pop()
-print(f"After pop: {int_array}, removed: {removed}")
-
-# Array methods
-print(f"Array length: {len(int_array)}")
-print(f"Sum of array: {sum(int_array)}")
-print(f"Index of 3: {int_array.index(3)}")
+# Convert between arrays and lists
+array_to_list = list(grades_array)
+list_to_array = array.array('i', grades_list)
+print(f"Array to list: {array_to_list}")
+print(f"List to array: {list_to_array}")
 ```
 
-### Activity 3.2: NumPy Arrays (Optional)
+### Activity 3.2: Array Operations for Math
 
-Introduction to NumPy arrays for numerical computations.
+Use arrays for mathematical calculations.
 
-**File: `numpy_arrays.py`**
+**File: `array_math.py`**
 ```python
-# NumPy Arrays Examples (requires: pip install numpy)
-print("=== NumPy Arrays ===\n")
+# Array Math - Perfect for calculations!
+print("=== Array Mathematics ===\n")
+
+import array
+
+# Test scores for math calculations
+test_scores = array.array('i', [78, 85, 92, 88, 76, 91, 83, 89, 94, 87])
+print(f"Test scores: {test_scores}")
+
+# Basic math operations
+print(f"Number of tests: {len(test_scores)}")
+print(f"Highest score: {max(test_scores)}")
+print(f"Lowest score: {min(test_scores)}")
+print(f"Total points: {sum(test_scores)}")
+print(f"Average score: {sum(test_scores) / len(test_scores):.1f}")
+
+# Find specific scores
+passing_score = 80
+passing_count = 0
+for score in test_scores:
+    if score >= passing_score:
+        passing_count += 1
+
+print(f"Passing scores (≥{passing_score}): {passing_count}")
+print(f"Passing percentage: {(passing_count / len(test_scores)) * 100:.1f}%")
+
+# Temperature data (using floats)
+temperatures = array.array('f', [23.5, 25.2, 22.8, 26.1, 24.7, 23.9, 25.5])
+print(f"\nWeekly temperatures: {temperatures}")
+
+# Convert Celsius to Fahrenheit
+fahrenheit = array.array('f')
+for temp in temperatures:
+    fahrenheit.append(temp * 9/5 + 32)
+
+print(f"In Fahrenheit: {fahrenheit}")
+```
+
+### Activity 3.3: NumPy Arrays (Advanced)
+
+Introduction to NumPy for serious math work.
+
+**File: `numpy_intro.py`**
+```python
+# NumPy Arrays - Professional math tools!
+print("=== NumPy Arrays (Advanced) ===\n")
 
 try:
     import numpy as np
     
-    # Creating NumPy arrays
-    arr1 = np.array([1, 2, 3, 4, 5])
-    arr2 = np.array([[1, 2, 3], [4, 5, 6]])
+    # Create NumPy arrays
+    scores = np.array([85, 92, 78, 90, 88, 76, 95])
+    print(f"NumPy array: {scores}")
     
-    print("NumPy array examples:")
-    print(f"1D array: {arr1}")
-    print(f"2D array:\n{arr2}")
-    print(f"Array shape: {arr2.shape}")
-    print(f"Array dtype: {arr1.dtype}")
+    # Amazing NumPy features
+    print(f"Mean: {np.mean(scores):.1f}")
+    print(f"Standard deviation: {np.std(scores):.1f}")
+    print(f"Median: {np.median(scores):.1f}")
     
-    # Array operations
-    print(f"\nArray operations:")
-    print(f"arr1 * 2: {arr1 * 2}")
-    print(f"arr1 + 10: {arr1 + 10}")
-    print(f"arr1 ** 2: {arr1 ** 2}")
+    # Array operations (vectorized - very fast!)
+    curved_scores = scores + 5  # Add 5 to all scores
+    print(f"Curved scores: {curved_scores}")
     
-    # Array functions
-    print(f"Sum: {np.sum(arr1)}")
-    print(f"Mean: {np.mean(arr1)}")
-    print(f"Max: {np.max(arr1)}")
-    print(f"Min: {np.min(arr1)}")
+    # Create special arrays
+    zeros = np.zeros(5)
+    ones = np.ones(5)
+    range_array = np.arange(0, 20, 2)
     
-    # Array creation functions
-    zeros = np.zeros((3, 3))
-    ones = np.ones((2, 4))
-    range_arr = np.arange(0, 10, 2)
+    print(f"Zeros: {zeros}")
+    print(f"Ones: {ones}")
+    print(f"Even numbers: {range_array}")
     
-    print(f"\nZeros array:\n{zeros}")
-    print(f"Ones array:\n{ones}")
-    print(f"Range array: {range_arr}")
+    # 2D arrays (like spreadsheets)
+    grade_matrix = np.array([
+        [85, 90, 88],  # Student 1
+        [92, 87, 91],  # Student 2
+        [78, 85, 82]   # Student 3
+    ])
+    
+    print(f"\nGrade matrix:")
+    print(grade_matrix)
+    print(f"Average per student: {np.mean(grade_matrix, axis=1)}")
+    print(f"Average per test: {np.mean(grade_matrix, axis=0)}")
     
 except ImportError:
-    print("NumPy not installed. Install with: pip install numpy")
-    print("Using Python lists instead:")
+    print("NumPy not installed! Install with: pip install numpy")
+    print("For now, we'll use regular Python arrays and lists:")
     
-    # List-based operations
-    numbers = [1, 2, 3, 4, 5]
-    doubled = [x * 2 for x in numbers]
-    squared = [x ** 2 for x in numbers]
+    # Alternative using regular Python
+    import array
+    scores = array.array('i', [85, 92, 78, 90, 88, 76, 95])
+    print(f"Regular array: {scores}")
     
-    print(f"Original: {numbers}")
-    print(f"Doubled: {doubled}")
-    print(f"Squared: {squared}")
+    # Manual calculations
+    average = sum(scores) / len(scores)
+    print(f"Average: {average:.1f}")
+    
+    # Add 5 to all scores (curve)
+    curved = array.array('i')
+    for score in scores:
+        curved.append(score + 5)
+    print(f"Curved scores: {curved}")
 ```
 
-## Section 4: Data Structure Comparison and Use Cases
+---
 
-### Activity 4.1: Performance Comparison
+## Part 4: Combining Lists, Dictionaries, and Arrays
 
-Compare performance characteristics of different data structures.
+Now let's use all three together to solve complex problems!
 
-**File: `performance_comparison.py`**
+### Activity 4.1: Sports Statistics System
+
+Create a system to track sports team statistics.
+
+**File: `sports_stats.py`**
 ```python
-# Performance Comparison Examples
-print("=== Performance Comparison ===\n")
+# Sports Statistics - All data structures together!
+print("=== Sports Team Statistics ===\n")
 
-import time
+import array
 
-# List vs Dictionary lookup
-large_list = list(range(10000))
-large_dict = {i: i for i in range(10000)}
-
-# List search
-start = time.time()
-result = 9999 in large_list
-list_time = time.time() - start
-
-# Dictionary search
-start = time.time()
-result = 9999 in large_dict
-dict_time = time.time() - start
-
-print(f"Search performance:")
-print(f"List search time: {list_time:.6f} seconds")
-print(f"Dict search time: {dict_time:.6f} seconds")
-print(f"Dictionary is {list_time/dict_time:.1f}x faster")
-
-# Memory usage comparison
-import sys
-test_list = [i for i in range(1000)]
-test_dict = {i: i for i in range(1000)}
-
-print(f"\nMemory usage:")
-print(f"List: {sys.getsizeof(test_list)} bytes")
-print(f"Dict: {sys.getsizeof(test_dict)} bytes")
-```
-
-### Activity 4.2: Choosing the Right Data Structure
-
-Examples of when to use each data structure.
-
-**File: `data_structure_choice.py`**
-```python
-# Data Structure Choice Examples
-print("=== Choosing the Right Data Structure ===\n")
-
-# Use Lists for:
-print("1. Lists - Use when you need:")
-print("   - Ordered collection")
-print("   - Allow duplicates")
-print("   - Index-based access")
-
-shopping_cart = ["apple", "banana", "apple", "orange"]
-print(f"Shopping cart: {shopping_cart}")
-print(f"First item: {shopping_cart[0]}")
-
-# Use Dictionaries for:
-print("\n2. Dictionaries - Use when you need:")
-print("   - Key-value pairs")
-print("   - Fast lookups")
-print("   - No duplicates for keys")
-
-user_profile = {
-    "username": "john_doe",
-    "email": "john@example.com",
-    "age": 30,
-    "preferences": ["coding", "reading"]
-}
-print(f"User profile: {user_profile}")
-print(f"Email: {user_profile['email']}")
-
-# Use Sets for:
-print("\n3. Sets - Use when you need:")
-print("   - Unique elements")
-print("   - Fast membership testing")
-print("   - Set operations")
-
-unique_visitors = {"alice", "bob", "charlie", "alice"}
-print(f"Unique visitors: {unique_visitors}")
-
-# Combined usage example
-print("\n4. Combined usage example:")
-student_grades = {
-    "Alice": [85, 92, 78, 90],
-    "Bob": [88, 85, 92, 87],
-    "Charlie": [92, 88, 85, 91]
+# Team data combining all structures
+team_data = {
+    "team_name": "Eagles",
+    "players": [
+        {"name": "Alex", "position": "Forward", "games": 12},
+        {"name": "Sam", "position": "Guard", "games": 11},
+        {"name": "Jordan", "position": "Center", "games": 12},
+        {"name": "Casey", "position": "Guard", "games": 10}
+    ],
+    "game_scores": array.array('i', [78, 85, 92, 67, 81, 89, 77, 83, 91, 86, 79, 88])
 }
 
-for student, grades in student_grades.items():
-    average = sum(grades) / len(grades)
-    print(f"{student}: grades {grades}, average {average:.1f}")
+print(f"Team: {team_data['team_name']}")
+print(f"Games played: {len(team_data['game_scores'])}")
+
+# Player statistics
+print("\nPlayer Roster:")
+for i, player in enumerate(team_data['players'], 1):
+    print(f"{i}. {player['name']} - {player['position']} ({player['games']} games)")
+
+# Game statistics using arrays
+scores = team_data['game_scores']
+print(f"\nGame Scores: {list(scores)}")
+print(f"Average score: {sum(scores) / len(scores):.1f}")
+print(f"Highest score: {max(scores)}")
+print(f"Lowest score: {min(scores)}")
+
+# Win/loss record (scores above 80 are wins)
+wins = 0
+losses = 0
+for score in scores:
+    if score >= 80:
+        wins += 1
+    else:
+        losses += 1
+
+print(f"Record: {wins} wins, {losses} losses")
+print(f"Win percentage: {(wins / len(scores)) * 100:.1f}%")
+
+# Position count using dictionary
+position_count = {}
+for player in team_data['players']:
+    position = player['position']
+    position_count[position] = position_count.get(position, 0) + 1
+
+print(f"\nPositions: {position_count}")
 ```
 
-## Execution Instructions
+### Activity 4.2: Weather Data Analysis
 
-Run each script to practice different data structure concepts:
+Analyze weather data using all three data structures.
 
-**Steps:**
-1. Create each Python file in your project directory
-2. Run the scripts one by one:
+**File: `weather_analysis.py`**
+```python
+# Weather Analysis - Real-world data science!
+print("=== Weather Data Analysis ===\n")
+
+import array
+
+# Weather data for a week
+weather_data = {
+    "city": "Boston",
+    "week": "March 15-21",
+    "daily_temps": array.array('f', [18.5, 22.3, 20.1, 25.6, 23.8, 19.2, 21.7]),
+    "conditions": ["Sunny", "Cloudy", "Rainy", "Sunny", "Partly Cloudy", "Rainy", "Sunny"],
+    "humidity": [45, 60, 85, 40, 55, 80, 50]
+}
+
+print(f"Weather Report for {weather_data['city']}")
+print(f"Week: {weather_data['week']}")
+
+# Daily report combining all data
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+temps = weather_data['daily_temps']
+conditions = weather_data['conditions']
+humidity = weather_data['humidity']
+
+print("\nDaily Weather:")
+for i in range(len(days)):
+    print(f"{days[i]}: {temps[i]:.1f}°C, {conditions[i]}, {humidity[i]}% humidity")
+
+# Temperature analysis using arrays
+print(f"\nTemperature Analysis:")
+print(f"Average temperature: {sum(temps) / len(temps):.1f}°C")
+print(f"Highest temperature: {max(temps):.1f}°C")
+print(f"Lowest temperature: {min(temps):.1f}°C")
+
+# Condition analysis using dictionaries
+condition_count = {}
+for condition in conditions:
+    condition_count[condition] = condition_count.get(condition, 0) + 1
+
+print(f"\nWeather Conditions:")
+for condition, count in condition_count.items():
+    print(f"{condition}: {count} days")
+
+# Find best day (highest temp + sunny)
+best_day = None
+best_temp = -100
+for i, condition in enumerate(conditions):
+    if condition == "Sunny" and temps[i] > best_temp:
+        best_temp = temps[i]
+        best_day = days[i]
+
+if best_day:
+    print(f"\nBest day: {best_day} ({best_temp:.1f}°C and Sunny)")
+```
+
+---
+
+## Practice Exercises
+
+Try these on your own!
+
+### Exercise 1: Grade Book System
+Create a complete grade book using lists for students, dictionaries for student info, and arrays for grades.
+
+### Exercise 2: Shopping Cart Calculator
+Build a shopping system with lists of items, dictionaries for product info, and arrays for prices.
+
+### Exercise 3: Music Playlist Analyzer
+Create a music analysis system using all three data structures.
+
+---
+
+## How to Run Your Code
+
+1. **Save each code example** in a separate `.py` file
+2. **Open your terminal/command prompt**
+3. **Navigate to your project folder**
+4. **Run each file** using Python:
 
 ```bash
 python list_basics.py
 python list_operations.py
-python list_slicing.py
+python list_tricks.py
 python dictionary_basics.py
 python dictionary_operations.py
-python advanced_dictionaries.py
-python arrays_vs_lists.py
-python numpy_arrays.py
-python performance_comparison.py
-python data_structure_choice.py
+python dictionary_advanced.py
+python array_basics.py
+python array_math.py
+python numpy_intro.py
+python student_system.py
+python class_schedule.py
+python sports_stats.py
+python weather_analysis.py
 ```
 
-**Learning Objectives:**
-- [ ] Create and manipulate lists effectively
-- [ ] Master dictionary operations and methods
-- [ ] Understand when to use arrays vs lists
-- [ ] Compare performance characteristics
-- [ ] Choose appropriate data structures for different use cases
-- [ ] Work with nested data structures
-- [ ] Apply data structures to solve real-world problems
+---
+
+## Quick Reference
+
+### Lists Cheat Sheet
+```python
+# Creating lists
+my_list = [1, 2, 3]
+
+# Adding items
+my_list.append(4)        # Add to end
+my_list.insert(0, 0)     # Insert at position
+
+# Removing items
+my_list.remove(2)        # Remove by value
+last_item = my_list.pop()  # Remove and return last
+
+# Useful operations
+len(my_list)            # Get length
+my_list.sort()          # Sort the list
+my_list[0]              # Get first item
+my_list[-1]             # Get last item
+```
+
+### Dictionaries Cheat Sheet
+```python
+# Creating dictionaries
+my_dict = {"name": "Alex", "age": 16}
+
+# Adding/changing items
+my_dict["grade"] = "A"   # Add new key-value pair
+my_dict["age"] = 17      # Change existing value
+
+# Getting information
+my_dict["name"]          # Get value by key
+my_dict.get("phone", "Not found")  # Safe get with default
+
+# Useful operations
+my_dict.keys()           # Get all keys
+my_dict.values()         # Get all values
+my_dict.items()          # Get key-value pairs
+```
+
+### Arrays Cheat Sheet
+```python
+import array
+
+# Creating arrays
+int_array = array.array('i', [1, 2, 3])     # integers
+float_array = array.array('f', [1.1, 2.2])  # floats
+
+# Array operations
+int_array.append(4)      # Add item
+len(int_array)           # Get length
+sum(int_array)           # Sum all numbers
+max(int_array)           # Find maximum
+min(int_array)           # Find minimum
+
+# Convert to/from lists
+list_version = list(int_array)
+array_version = array.array('i', [1, 2, 3])
+```
+
+---
+
+## When to Use Each Data Structure
+
+**Use Lists when:**
+- You need to store items in order
+- You want to allow duplicates
+- You need to access items by position
+- Example: Shopping cart, to-do list, student roster
+
+**Use Dictionaries when:**
+- You need to look up values by keys
+- You want to store related information together
+- You need fast lookups
+- Example: Phone book, student profiles, settings
+
+**Use Arrays when:**
+- You're working with lots of numbers
+- You need efficient storage
+- You're doing math calculations
+- Example: Test scores, temperatures, measurements
+
+---
+
+## What's Next?
+
+Great job learning about lists, dictionaries, and arrays! These are the foundation of data organization in programming. In the next session, we'll learn about functions and how to organize our code into reusable pieces.
+
+**Remember:** The best way to learn is by doing! Try creating your own projects using these data structures.
