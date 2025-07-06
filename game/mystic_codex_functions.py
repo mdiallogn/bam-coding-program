@@ -189,10 +189,12 @@ def dark_path_adventure(game_state):
             game_state['score'] += 30
             return "creature_ally"
         else:
-            print("The creature senses your weakness and growls.")
-            print("You back away slowly and find another path.")
-            game_state['health'] = max(0, game_state['health'] - 10)
-            return "alternative"
+            print("The creature senses your weakness and growls menacingly.")
+            print("It attacks! You barely escape but are badly injured.")
+            if apply_stat_changes(game_state, -25, -15):
+                return "game_over"
+            return "barely_escaped"
+            
     elif choice == '2':
         print("\n🤫 You sneak around quietly...")
         if game_state['energy'] >= 60:
@@ -202,9 +204,11 @@ def dark_path_adventure(game_state):
             return "stealth"
         else:
             print("You're too tired to sneak properly and step on a branch!")
-            print("The creature notices but lets you pass peacefully.")
-            game_state['energy'] = max(0, game_state['energy'] - 10)
-            return "peaceful"
+            print("The creature notices and chases you! You run but trip and fall.")
+            if apply_stat_changes(game_state, -20, -20):
+                return "game_over"
+            print("You manage to get away but are hurt and exhausted.")
+            return "failed_stealth"
     else:
         print("\n🍞 You offer food to the creature...")
         print("The creature accepts your gift gratefully!")
@@ -224,7 +228,7 @@ def mountain_path_adventure(game_state):
     
     choice = validate_input("What do you choose? (1, 2, or 3): ", ['1', '2', '3'])
     
-    # Energy-dependent outcomes
+    # Energy-dependent outcomes with real consequences
     if choice == '1':
         print("\n⬇️ You take the steep path...")
         if game_state['energy'] >= 40:
@@ -233,16 +237,27 @@ def mountain_path_adventure(game_state):
             game_state['score'] += 20
             return "safe_descent"
         else:
-            print("You're too tired and slip, injuring yourself.")
-            game_state['health'] = max(0, game_state['health'] - 25)
-            game_state['energy'] = max(0, game_state['energy'] - 15)
-            return "injured_descent"
+            print("You're too tired and slip badly, tumbling down the rocky slope!")
+            print("You hit your head on a rock and lose consciousness...")
+            if apply_stat_changes(game_state, -40, -25):
+                return "game_over"
+            print("You wake up battered and bleeding but somehow still alive.")
+            return "dangerous_fall"
+            
     elif choice == '2':
         print("\n🕳️ You enter the caves...")
-        print("The caves are dark but lead to an underground river.")
-        game_state['energy'] = max(0, game_state['energy'] - 15)
-        game_state['score'] += 30
-        return "cave_river"
+        if game_state['energy'] >= 20:
+            print("The caves are dark but lead to an underground river.")
+            game_state['energy'] -= 15
+            game_state['score'] += 30
+            return "cave_river"
+        else:
+            print("You're too exhausted to navigate the dark caves safely.")
+            print("You get lost in the darkness and panic, using up your remaining energy.")
+            if apply_stat_changes(game_state, -10, -15):
+                return "game_over"
+            print("You eventually find your way out, but you're in terrible condition.")
+            return "lost_in_caves"
     else:
         print("\n🏠 You wait for help...")
         print("A friendly ranger finds you and escorts you to safety.")
@@ -334,7 +349,7 @@ def combat_encounter(game_state):
     display_header("⚔️ COMBAT ENCOUNTER")
     print("A shadow creature emerges from the darkness!")
     
-    enemy_health = 30
+    enemy_health = 35  # Made slightly stronger
     battle_round = 0
     
     # WHILE LOOP - Battle continues until someone is defeated
@@ -363,15 +378,26 @@ def combat_encounter(game_state):
                 print("🧪 You drink a healing potion and recover 25 health!")
             else:
                 print("❌ You don't have any healing potions!")
-                continue  # Skip enemy turn
+                print("You waste your turn searching your inventory!")
+                # Enemy gets extra attack for wasted turn
+                enemy_damage = random.randint(8, 15)
+                game_state['health'] = max(0, game_state['health'] - enemy_damage)
+                print(f"👹 The creature takes advantage and deals {enemy_damage} extra damage!")
+                if game_state['health'] <= 0:
+                    print("\n💀 You have been defeated in battle...")
+                    return "combat_death"
+                continue
                 
         elif action == '3':
-            if random.random() > 0.5:  # 50% chance to flee
+            # Flee chance depends on current health and energy
+            flee_chance = 0.3 if game_state['health'] < 30 else 0.5
+            if random.random() < flee_chance:
                 print("🏃 You successfully escape from the battle!")
-                game_state['energy'] = max(0, game_state['energy'] - 10)
-                return False
+                game_state['energy'] = max(0, game_state['energy'] - 15)
+                return "fled_combat"
             else:
                 print("❌ You couldn't escape! The creature blocks your path.")
+                print("Your failed escape attempt leaves you vulnerable!")
         
         # Check if enemy is defeated
         if enemy_health <= 0:
@@ -379,24 +405,35 @@ def combat_encounter(game_state):
             game_state['score'] += 50
             game_state['inventory'].append("shadow essence")
             print("You gain 50 points and find a magical artifact!")
-            return True
+            return "combat_victory"
         
-        # Enemy's turn
+        # Enemy's turn - damage increases as battle goes on
         if enemy_health > 0:
-            enemy_damage = random.randint(5, 10)
-            game_state['health'] = max(0, game_state['health'] - enemy_damage)
-            print(f"👹 The creature attacks you for {enemy_damage} damage!")
+            base_damage = random.randint(5, 12)
+            # Creature gets more dangerous when wounded
+            if enemy_health <= 15:
+                base_damage += 3
+                print("The creature becomes more vicious as it's wounded!")
+            
+            game_state['health'] = max(0, game_state['health'] - base_damage)
+            print(f"👹 The creature attacks you for {base_damage} damage!")
             
             if game_state['health'] <= 0:
-                print("\n💀 You have been defeated...")
-                return False
+                print("\n💀 You have been defeated in battle...")
+                return "combat_death"
     
-    return True
+    return "combat_victory"
 
 def exploration_system(game_state):
     """Handle location exploration using loops"""
     display_header("🗺️ EXPLORATION SYSTEM")
     print("You can now explore different areas of the forest...")
+    
+    # Check if player has enough energy to explore
+    if game_state['energy'] <= 15:
+        print("You're too exhausted to explore safely.")
+        print("You must find the exit before you collapse!")
+        return
     
     available_locations = {
         '1': 'Crystal Cave',
@@ -405,7 +442,7 @@ def exploration_system(game_state):
     }
     
     # WHILE LOOP - Continue exploring until player chooses to stop
-    while game_state['energy'] > 10:
+    while game_state['energy'] > 15:
         print("\n🌲 Available Locations:")
         for key, location in available_locations.items():
             visited = "✓" if location in game_state['locations_visited'] else ""
@@ -419,19 +456,44 @@ def exploration_system(game_state):
             break
         
         location = available_locations[choice]
-        explore_location(game_state, location)
+        if explore_location(game_state, location):
+            return  # Game over occurred
         
         # Each exploration costs energy
-        game_state['energy'] = max(0, game_state['energy'] - 5)
+        game_state['energy'] = max(0, game_state['energy'] - 8)
         
-        # Ask if player wants to continue
-        if game_state['energy'] > 10:
+        # Check for exhaustion
+        if game_state['energy'] <= 15:
+            print("\n⚠️ You're getting dangerously exhausted!")
+            print("You should head to the exit before you collapse!")
+            continue_exploring = validate_input("Do you want to risk exploring more? (y/n): ", ['y', 'n'])
+            if continue_exploring == 'n':
+                break
+        elif game_state['energy'] > 15:
             continue_exploring = validate_input("Do you want to continue exploring? (y/n): ", ['y', 'n'])
             if continue_exploring == 'n':
                 break
 
 def explore_location(game_state, location):
     """Handle individual location exploration - uses conditions"""
+    # Random chance of danger in each location
+    danger_chance = 0.2  # 20% chance of dangerous encounter
+    
+    if random.random() < danger_chance:
+        print(f"\n⚠️ Danger in {location}!")
+        if location == "Crystal Cave":
+            print("A crystal shard falls and cuts you!")
+            if apply_stat_changes(game_state, -15, -5):
+                return True
+        elif location == "Ancient Grove":
+            print("Poisonous thorns scratch you as you explore!")
+            if apply_stat_changes(game_state, -10, -10):
+                return True
+        elif location == "Mystical Spring":
+            print("You slip on wet rocks and injure yourself!")
+            if apply_stat_changes(game_state, -12, -8):
+                return True
+    
     # Use conditions to handle different locations
     if location == "Crystal Cave":
         if location not in game_state['locations_visited']:
@@ -471,11 +533,60 @@ def explore_location(game_state, location):
             print("\n🌊 You return to the mystical spring.")
             print("The water still provides some healing.")
             game_state['health'] = min(100, game_state['health'] + 10)
+    
+    return False
+
+def check_game_over(game_state):
+    """Check if the game should end due to low health or energy"""
+    if game_state['health'] <= 0:
+        display_header("💀 GAME OVER - HEALTH DEPLETED")
+        print("Your health has reached zero. You collapse in the forest...")
+        print("The mysterious forest claims another victim.")
+        print("Your adventure ends here.")
+        return True
+    elif game_state['energy'] <= 0:
+        display_header("😴 GAME OVER - EXHAUSTED")
+        print("You are completely exhausted and can no longer continue.")
+        print("You sit down to rest and fall into a deep sleep...")
+        print("When you wake up, you're back where you started - outside the forest.")
+        print("You failed to escape, but at least you're alive.")
+        return True
+    return False
+
+def apply_stat_changes(game_state, health_change, energy_change):
+    """Apply health and energy changes and check for game over"""
+    game_state['health'] = max(0, game_state['health'] + health_change)
+    game_state['energy'] = max(0, game_state['energy'] + energy_change)
+    
+    # Check if changes caused game over
+    if check_game_over(game_state):
+        return True
+    return False
 
 # ENDING FUNCTIONS
 
 def determine_ending(game_state, ending_type):
     """Determine and display the appropriate ending - uses conditions"""
+    # Check for failure endings first
+    if ending_type == "game_over":
+        return  # Game over already handled
+    
+    if ending_type == "combat_death":
+        display_header("💀 DEFEAT")
+        print("You fought bravely but the shadow creature was too powerful.")
+        print("Your adventure ends in the dark forest...")
+        print("Better luck next time!")
+        return
+    
+    if ending_type in ["barely_escaped", "failed_stealth", "dangerous_fall", "lost_in_caves"]:
+        display_header("😰 NARROW ESCAPE")
+        print("You barely survived your ordeal in the forest.")
+        print("Though you eventually found your way out, you're badly injured.")
+        print("You'll need weeks to recover from this adventure.")
+        print("Next time, be more careful with your choices!")
+        return
+    
+    # Calculate final score for successful endings
     final_score = calculate_ending_score(
         game_state['health'], 
         game_state['energy'], 
@@ -516,7 +627,8 @@ def add_story_ending_flavor(ending_type):
         "stealth": "You've become one with the shadows.",
         "safe_descent": "Your climbing skills are now legendary.",
         "cave_river": "You've discovered secrets few will ever know.",
-        "rescue": "Sometimes the best choice is to wait for help."
+        "rescue": "Sometimes the best choice is to wait for help.",
+        "fled_combat": "Sometimes running away is the smartest choice."
     }
     
     if ending_type in story_endings:
@@ -557,8 +669,8 @@ def main():
         
         # Choose initial path
         chosen_path, energy_change, health_change = choose_initial_path()
-        game_state['energy'] = max(0, game_state['energy'] + energy_change)
-        game_state['health'] = max(0, game_state['health'] + health_change)
+        if apply_stat_changes(game_state, health_change, energy_change):
+            continue  # Game over, restart
         
         display_stats(game_state['health'], game_state['energy'])
         
@@ -574,14 +686,22 @@ def main():
             ending_type = bright_path_adventure(game_state)
         elif chosen_path == "dark":
             ending_type = dark_path_adventure(game_state)
+            # Check if game over occurred
+            if ending_type == "game_over":
+                continue
             # Combat encounter for dark path
             if game_state['health'] > 0:
-                combat_encounter(game_state)
+                combat_result = combat_encounter(game_state)
+                if combat_result == "combat_death":
+                    ending_type = "combat_death"
         else:  # mountain path
             ending_type = mountain_path_adventure(game_state)
+            # Check if game over occurred
+            if ending_type == "game_over":
+                continue
         
-        # Exploration system
-        if game_state['health'] > 0:
+        # Exploration system (only if still alive)
+        if game_state['health'] > 0 and ending_type not in ["combat_death", "game_over"]:
             exploration_system(game_state)
         
         # Show final results
@@ -596,6 +716,7 @@ def main():
     
     print("\n🎮 Thanks for playing The Mystic Forest Adventure!")
     print("You've learned about functions, conditions, and loops!")
+    print("Remember: sometimes you lose, but that's how you learn to play better!")
 
 # Run the game
 if __name__ == "__main__":
