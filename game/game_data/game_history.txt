@@ -1,0 +1,8 @@
+[2025-07-06 13:22:13] New game started by 1
+[2025-07-06 13:22:13] Game completed by 1 with score 128
+[2025-07-06 13:23:41] Game loaded by 1 from slot 1
+[2025-07-06 13:24:20] New game started by Mamadou
+[2025-07-06 13:24:20] Game completed by Mamadou with score 69
+[2025-07-06 13:24:35] New game started by Adventurer
+[2025-07-06 13:24:35] Game completed by Adventurer with score 113
+[2025-07-06 13:24:45] Game session ended

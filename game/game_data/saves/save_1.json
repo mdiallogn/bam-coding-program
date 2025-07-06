@@ -1,0 +1,22 @@
+{
+  "player_name": "Adventurer",
+  "health": 100,
+  "max_health": 100,
+  "energy": 100,
+  "max_energy": 100,
+  "strength": 10,
+  "luck": 5,
+  "experience": 0,
+  "level": 1,
+  "current_location": "forest_entrance",
+  "inventory": {},
+  "visited_locations": [],
+  "game_history": [],
+  "achievements": [
+    "first_game"
+  ],
+  "score": 113,
+  "start_time": "2025-07-06T13:24:35.549211",
+  "save_date": "2025-07-06T13:24:35.558469",
+  "save_slot": 1
+}

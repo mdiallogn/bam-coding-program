@@ -1,0 +1,22 @@
+{
+  "scores": [
+    {
+      "player": "1",
+      "score": 128,
+      "difficulty": "normal",
+      "date": "2025-07-06T13:22:13.694685"
+    },
+    {
+      "player": "Adventurer",
+      "score": 113,
+      "difficulty": "normal",
+      "date": "2025-07-06T13:24:35.569414"
+    },
+    {
+      "player": "Mamadou",
+      "score": 69,
+      "difficulty": "normal",
+      "date": "2025-07-06T13:24:20.052243"
+    }
+  ]
+}
