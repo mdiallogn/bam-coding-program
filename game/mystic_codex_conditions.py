@@ -329,14 +329,7 @@ print(f"Energy: {energy}")
 print("-------------------")
 print()
 
-def main():
-    """Main game function"""
-    # Game over message
-    print("\n" + "="*50)
-    print("Thanks for playing The Mystic Forest Adventure!")
-    print("Your choices shaped your unique story!")
-    print("="*50)
-
-# Run the game
-if __name__ == "__main__":
-    main()
+print("\n" + "="*50)
+print("Thanks for playing The Mystic Forest Adventure!")
+print("Your choices shaped your unique story!")
+print("="*50)
