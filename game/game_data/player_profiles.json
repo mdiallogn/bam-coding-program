@@ -1,0 +1,38 @@
+{
+  "1": {
+    "name": "1",
+    "games_played": 2,
+    "total_score": 296,
+    "best_score": 168,
+    "achievements": [
+      "first_game"
+    ],
+    "total_playtime": 0,
+    "created_date": "2025-07-06T13:22:13.682125",
+    "last_played": "2025-07-06T13:23:41.213567"
+  },
+  "Mamadou": {
+    "name": "Mamadou",
+    "games_played": 1,
+    "total_score": 69,
+    "best_score": 69,
+    "achievements": [
+      "first_game"
+    ],
+    "total_playtime": 0,
+    "created_date": "2025-07-06T13:24:20.031860",
+    "last_played": "2025-07-06T13:24:20.051231"
+  },
+  "Adventurer": {
+    "name": "Adventurer",
+    "games_played": 1,
+    "total_score": 113,
+    "best_score": 113,
+    "achievements": [
+      "first_game"
+    ],
+    "total_playtime": 0,
+    "created_date": "2025-07-06T13:24:35.547314",
+    "last_played": "2025-07-06T13:24:35.568523"
+  }
+}
