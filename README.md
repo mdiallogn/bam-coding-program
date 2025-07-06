@@ -1,4 +1,4 @@
-# Text-Based Adventure Game
+# The Mystic Codex: A Text-Based Adventure Game
 
 ## Excercise 1: Foundations & Conditions  
 **Topic:** Using Conditions in the Game  
