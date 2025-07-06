@@ -246,7 +246,10 @@ Good luck, brave adventurer!
             name_frame, 
             width=25,
             font=("Arial", 12),
-            justify='center'
+            justify='center',
+            bg='white',
+            fg='black',
+            insertbackground='black'  # Cursor color
         )
         self.name_entry.pack(pady=(0, 10))
         self.name_entry.insert(0, "Adventurer")
@@ -265,7 +268,11 @@ Good luck, brave adventurer!
             font=("Arial", 14, "bold"),
             width=20,
             height=2,
-            cursor='hand2'
+            cursor='hand2',
+            activebackground='#5d8f6c',
+            activeforeground='white',
+            relief='raised',
+            bd=3
         )
         start_btn.pack(side=tk.LEFT, padx=10)
         
@@ -278,7 +285,11 @@ Good luck, brave adventurer!
             font=("Arial", 14, "bold"),
             width=20,
             height=2,
-            cursor='hand2'
+            cursor='hand2',
+            activebackground='#5c5c8f',
+            activeforeground='white',
+            relief='raised',
+            bd=3
         )
         demo_btn.pack(side=tk.LEFT, padx=10)
         
@@ -404,9 +415,23 @@ Good luck, brave adventurer!
         puzzle_frame = tk.Frame(self.choice_frame, bg='#2d4a2d')
         puzzle_frame.pack(pady=10)
         
-        tk.Label(puzzle_frame, text="Your answer:", bg='#2d4a2d', fg='white').pack(side=tk.LEFT)
+        tk.Label(
+            puzzle_frame, 
+            text="Your answer:", 
+            bg='#2d4a2d', 
+            fg='black',
+            font=("Arial", 12, "bold")
+        ).pack(side=tk.LEFT, padx=(0, 5))
         
-        answer_entry = tk.Entry(puzzle_frame, width=10)
+        answer_entry = tk.Entry(
+            puzzle_frame, 
+            width=10,
+            font=("Arial", 12),
+            bg='white',
+            fg='black',
+            insertbackground='black',
+            justify='center'
+        )
         answer_entry.pack(side=tk.LEFT, padx=5)
         
         def check_answer():
@@ -436,7 +461,13 @@ Good luck, brave adventurer!
             text="Submit",
             command=check_answer,
             bg='#4a7c59',
-            fg='white'
+            fg='black',
+            font=("Arial", 12, "bold"),
+            activebackground='#5d8f6c',
+            activeforeground='white',
+            cursor='hand2',
+            relief='raised',
+            bd=2
         )
         submit_btn.pack(side=tk.LEFT, padx=5)
         
@@ -616,6 +647,7 @@ Good luck, brave adventurer!
             self.add_story_text("A friendly ranger finds you and escorts you to safety.")
             self.modify_stats(energy=-5)
             self.game_state.score += 25
+            self.add_story_text("You gain 25 energy from the peaceful rest.")
             self.game_state.ending_type = "rescue"
             
         self.update_stats_display()
@@ -742,7 +774,11 @@ Good luck, brave adventurer!
             font=("Arial", 12, "bold"),
             width=18,
             height=2,
-            cursor='hand2'
+            cursor='hand2',
+            activebackground='#5c5c8f',
+            activeforeground='white',
+            relief='raised',
+            bd=3
         )
         stats_btn.pack(side=tk.LEFT, padx=10)
         
@@ -755,7 +791,11 @@ Good luck, brave adventurer!
             font=("Arial", 12, "bold"),
             width=18,
             height=2,
-            cursor='hand2'
+            cursor='hand2',
+            activebackground='#5d8f6c',
+            activeforeground='white',
+            relief='raised',
+            bd=3
         )
         restart_btn.pack(side=tk.LEFT, padx=10)
         
@@ -768,10 +808,14 @@ Good luck, brave adventurer!
             font=("Arial", 12, "bold"),
             width=18,
             height=2,
-            cursor='hand2'
+            cursor='hand2',
+            activebackground='#8f5c5c',
+            activeforeground='white',
+            relief='raised',
+            bd=3
         )
         quit_btn.pack(side=tk.LEFT, padx=10)
-        
+
     def show_detailed_stats(self):
         """Show detailed game statistics in a new window"""
         stats_window = tk.Toplevel(self.root)
@@ -932,22 +976,24 @@ Locations Visited: {len(self.game_state.locations_visited)}
                 text=f"{i+1}. {text}",
                 command=command,
                 bg='#4a7c59',
-                fg='white',
-                font=("Arial", 11),
+                fg='black',
+                font=("Arial", 11, "bold"),
                 width=50,
                 height=2,
                 wraplength=400,
                 cursor='hand2',
                 relief='raised',
-                bd=2
+                bd=3,
+                activebackground='#5d8f6c',
+                activeforeground='black'
             )
             btn.pack(pady=5)
             
-            # Add hover effects
+            # Add hover effects with better color contrast
             def on_enter(e, button=btn):
-                button.config(bg='#5d8f6c')
+                button.config(bg='#5d8f6c', fg='white')
             def on_leave(e, button=btn):
-                button.config(bg='#4a7c59')
+                button.config(bg='#4a7c59', fg='white')
             
             btn.bind("<Enter>", on_enter)
             btn.bind("<Leave>", on_leave)
